@@ -18,12 +18,14 @@
         btnDisabled = false;
       }
     }
+
+    const handleSelect =(e)=>rating = e.detail;
 </script>
 
 <Card>
     <header><h2>How would you rate your service with us?</h2></header>
-    <form>
-        <RatingSelect />
+    <form on:submit|preventDefault={handleSubmit}>
+        <RatingSelect on:rating-select={handleSelect} />
         <div class="input-group">
           <input type="text" on:input={handleInput} bind:value = {text} placeholder="Tell us something that keeps you coming back">
           <Button disabled={btnDisabled} type="submit">Send</Button>
