@@ -1,24 +1,38 @@
 <script>
     import Card from './Card.svelte';
     import Button from './Button.svelte';
+    import RatingSelect from './RatingSelect.svelte'
 
     let text = "";
+    let rating = 10;
     let btnDisabled = true;
+    let min = 10;
+    let message = "";
+
+    const handleInput =()=>{
+      if (text.trim().length <= min ) {
+        message = `Text must be at least ${min} characters`;
+        btnDisabled = true;
+      }else {
+        message = null;
+        btnDisabled = false;
+      }
+    }
 </script>
 
 <Card>
     <header><h2>How would you rate your service with us?</h2></header>
     <form>
-        <!-- <RatingSelect on:rating-select={handleSelect} /> -->
+        <RatingSelect />
         <div class="input-group">
           <input type="text" on:input={handleInput} bind:value = {text} placeholder="Tell us something that keeps you coming back">
           <Button disabled={btnDisabled} type="submit">Send</Button>
         </div>
-        <!-- {#if message}
+        {#if message}
           <div class="message">
             {message}
           </div>
-        {/if} -->
+        {/if}
       </form>
 </Card>
 
