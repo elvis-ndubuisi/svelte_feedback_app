@@ -20,6 +20,16 @@
     }
 
     const handleSelect =(e)=>rating = e.detail;
+
+    const handleSubmit = ()=>{
+      if(text.trim().length > min){
+        const newFeedback = {
+          id: 
+          text,
+          rading: +rating
+        }
+      }
+    }
 </script>
 
 <Card>
