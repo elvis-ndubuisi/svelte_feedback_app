@@ -1,35 +1,41 @@
 <script>
-    import Card from './Card.svelte';
-    import Button from './Button.svelte';
-    import RatingSelect from './RatingSelect.svelte'
+  import {createEventDispatcher} from 'svelte';
+  import {v4 as uuidv4} from 'uuid';
+  import Card from './Card.svelte';
+  import Button from './Button.svelte';
+  import RatingSelect from './RatingSelect.svelte'
 
-    let text = "";
-    let rating = 10;
-    let btnDisabled = true;
-    let min = 10;
-    let message = "";
+  let text = "";
+  let rating = 10;
+  let btnDisabled = true;
+  let min = 10;
+  let message = "";
 
-    const handleInput =()=>{
-      if (text.trim().length <= min ) {
-        message = `Text must be at least ${min} characters`;
-        btnDisabled = true;
-      }else {
-        message = null;
-        btnDisabled = false;
-      }
+  const dispatch = createEventDispatcher();
+
+  const handleInput =()=>{
+    if (text.trim().length <= min ) {
+      message = `Text must be at least ${min} characters`;
+      btnDisabled = true;
+    }else {
+      message = null;
+      btnDisabled = false;
     }
+  }
 
-    const handleSelect =(e)=>rating = e.detail;
+  const handleSelect =(e)=>rating = e.detail;
 
-    const handleSubmit = ()=>{
-      if(text.trim().length > min){
-        const newFeedback = {
-          id: 
-          text,
-          rading: +rating
-        }
+  const handleSubmit = ()=>{
+    if(text.trim().length > min){
+      const newFeedback = {
+        id: uuidv4(),
+        text,
+        rating: +rating
       }
+      dispatch('add-feedback', newFeedback);
+      text = "";
     }
+  }
 </script>
 
 <Card>
